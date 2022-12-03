@@ -17,7 +17,7 @@ func main() {
 	var elfCalories map[uint]uint = map[uint]uint{}
 
 	path, _ := os.Getwd()
-	file, err := os.Open(path + "/one/input.txt")
+	file, err := os.Open(path + "/day1/input.txt")
 
 	if err == nil {
 		inputScanner = *bufio.NewScanner(file)

@@ -20,7 +20,7 @@ func main() {
 	var inputScanner bufio.Scanner
 
 	path, _ := os.Getwd()
-	file, err := os.Open(path + "/two/input.txt")
+	file, err := os.Open(path + "/day2/input.txt")
 
 	if err == nil {
 		inputScanner = *bufio.NewScanner(file)
