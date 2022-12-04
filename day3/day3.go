@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"math"
 	"os"
 	"strings"
 )
@@ -17,22 +16,37 @@ func main() {
 
 	inputScanner = *bufio.NewScanner(file)
 
-	for inputScanner.Scan() {
-		line := inputScanner.Text()
-		lineLen := len(line)
-		mid := int(math.Floor(float64(lineLen) / 2.0))
+	for {
+		var lines = getLines(&inputScanner, 3)
 
-		compartment1 := line[:mid]
-		compartment2 := line[mid:]
+		if len(lines) == 3 {
+			items := intersect(lines[0], lines[1])
+			items = intersect(string(items), lines[2])
+			fmt.Printf("items: %v\n", string(items))
 
-		items := intersect(compartment1, compartment2)
+			for idx := range items {
+				sum += getPriority(items[idx])
+			}
+		}
 
-		for idx := range items {
-			sum += getPriority(items[idx])
+		// The last thing read was no bytes.
+		// So we know we're done.
+		if len(inputScanner.Bytes()) == 0 {
+			break
 		}
 	}
 
 	fmt.Printf("sum: %d\n", sum)
+}
+
+func getLines(inputScanner *bufio.Scanner, count uint) []string {
+	var lines = []string{}
+
+	for i := 0; i < int(count) && inputScanner.Scan(); i++ {
+		lines = append(lines, inputScanner.Text())
+	}
+
+	return lines
 }
 
 func getPriority(char byte) uint {
