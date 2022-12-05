@@ -67,8 +67,10 @@ func processPairs(pairs *[]team) {
 }
 
 func isOverlap(pair *team) bool {
-	return pair.one.min <= pair.two.min && pair.one.max >= pair.two.max ||
-		pair.two.min <= pair.one.min && pair.two.max >= pair.one.max
+	return (pair.two.min >= pair.one.min && pair.two.min <= pair.one.max) ||
+		(pair.two.max <= pair.one.max && pair.two.max >= pair.one.min) ||
+		(pair.one.min >= pair.two.min && pair.one.min <= pair.two.max) ||
+		(pair.one.max <= pair.two.max && pair.one.max >= pair.two.min)
 }
 
 func getInput() *bufio.Scanner {
