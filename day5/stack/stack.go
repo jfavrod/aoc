@@ -13,18 +13,9 @@ func Add(toStack *Stack, item string) {
 }
 
 func Move(itemCount int, fromStack *Stack, toStack *Stack) {
-	for i := 0; i < itemCount; i++ {
-		var top int = 0
-		fromStackLen := len(fromStack.items)
-
-		if fromStackLen > 0 {
-			top = fromStackLen - 1
-		}
-
-		item := (*fromStack).items[top]
-		(*toStack).items = append((*toStack).items, item)
-		(*fromStack).items = (*fromStack).items[:top]
-	}
+	cutoff := len((*fromStack).items) - itemCount
+	(*toStack).items = append((*toStack).items, (*fromStack).items[cutoff:]...)
+	(*fromStack).items = (*fromStack).items[:cutoff]
 }
 
 func Reverse(toStack *Stack) {

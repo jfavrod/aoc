@@ -54,7 +54,6 @@ func exec(scanner *bufio.Scanner, stacks *map[int]*stack.Stack) {
 
 		stack.Move(count, (*stacks)[toStackId(from)], (*stacks)[toStackId(to)])
 	}
-
 }
 
 func iterateStacks(stacks *map[int]*stack.Stack, fun stackFunc) {
