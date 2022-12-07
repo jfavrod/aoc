@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-const BUFFER_SIZE = 4
+const BUFFER_SIZE = 14
 
 func main() {
 	var start = 0
@@ -34,10 +34,11 @@ func getStartIndex(file *os.File, start *int) {
 		if *start < (BUFFER_SIZE - 1) {
 			buffer[bufferLen-1] = next
 		} else {
-			buffer[0] = buffer[1]
-			buffer[1] = buffer[2]
-			buffer[2] = buffer[3]
-			buffer[3] = next
+			for i := 0; i < BUFFER_SIZE-1; i++ {
+				buffer[i] = buffer[i+1]
+			}
+
+			buffer[BUFFER_SIZE-1] = next
 
 			if !hasDuplicateBytes(&buffer) {
 				break
